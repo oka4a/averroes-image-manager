@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { PropsWithChildren } from "react";
 import { AppRouterCacheProvider as MuiAppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { Container, CssBaseline, ThemeProvider } from "@mui/material";
 import theme from "./_theme";
+import Header from "./_components/Header";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -24,7 +25,12 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
       <MuiAppRouterCacheProvider>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <body className={roboto.variable}>{children}</body>
+          <body className={roboto.variable}>
+            <Header />
+            <Container maxWidth="xl" sx={{ py: 8 }}>
+              {children}
+            </Container>
+          </body>
         </ThemeProvider>
       </MuiAppRouterCacheProvider>
     </html>
