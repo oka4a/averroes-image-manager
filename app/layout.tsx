@@ -14,8 +14,7 @@ export const metadata: Metadata = {
   description: "Mange your images",
 };
 
-interface RootLayout extends Readonly<PropsWithChildren> {}
-export default function RootLayout({ children }: RootLayout) {
+export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
   return (
     <html lang="en">
       <body className={roboto.variable}>{children}</body>
