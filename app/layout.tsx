@@ -1,10 +1,13 @@
+import { Container, CssBaseline, ThemeProvider } from "@mui/material";
+import { AppRouterCacheProvider as MuiAppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import "@styles/globals.css";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { PropsWithChildren } from "react";
-import { AppRouterCacheProvider as MuiAppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import { Container, CssBaseline, ThemeProvider } from "@mui/material";
-import theme from "./_theme";
 import Header from "./_components/Header";
+import QueryProvider from "./_providers/QueryClientProvider";
+import theme from "./_theme";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -26,10 +29,13 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <body className={roboto.variable}>
-            <Header />
-            <Container maxWidth="xl" sx={{ py: 8 }}>
-              {children}
-            </Container>
+            <QueryProvider>
+              <Header />
+              <Container maxWidth="xl" sx={{ py: 8 }}>
+                {children}
+              </Container>
+              <ReactQueryDevtools initialIsOpen={false} />
+            </QueryProvider>
           </body>
         </ThemeProvider>
       </MuiAppRouterCacheProvider>
