@@ -1,13 +1,7 @@
-import {
-  AppBar,
-  Link,
-  List,
-  ListItem,
-  Toolbar,
-  Typography,
-} from "@mui/material";
-import NextLink from "next/link";
-import { ROUTES } from "../_constants/routes";
+import { AppBar, List, ListItem, Toolbar, Typography } from "@mui/material";
+import { ROUTES } from "@constants/routes";
+import Link from "./Link";
+
 const Header = () => {
   return (
     <AppBar
@@ -24,7 +18,6 @@ const Header = () => {
               return (
                 <ListItem key={key} sx={{ paddingInline: 0 }}>
                   <Link
-                    component={NextLink}
                     href={value.href}
                     color="#fff"
                     sx={{ textDecoration: "none" }}
