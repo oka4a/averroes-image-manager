@@ -1,9 +1,13 @@
 import { fetchApi } from "../_utils/fetchApi";
 
-async function getCategories() {
+export async function getCategories() {
   const categories = fetchApi<ICategory[]>("/categories");
 
   return categories;
 }
 
-export default getCategories;
+export async function getCategory(id: number) {
+  const category = fetchApi<ICategory>(`/categories/${id}`);
+
+  return category;
+}
