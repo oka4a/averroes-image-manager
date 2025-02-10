@@ -5,6 +5,7 @@ if (!baseUrl) {
   throw new Error("NEXT_PUBLIC_API_URL is not defined");
 }
 
+// TODO: convert it to a class to centeralize post, put, delete..etc logic
 export async function fetchApi<T>(
   endpoint: string,
   options: RequestInit = {},

@@ -1,5 +1,5 @@
-import CategoriesPrefetcher from "@/app/_components/CategoriesPrefetcher";
-import SkeltonRows from "@/app/_components/SkeletonRows";
+import CategoriesPrefetcher from "@components/shared/CategoriesPrefetcher";
+import SkeltonRows from "@/app/_components/shared/SkeletonRows";
 import {
   Paper,
   Table,
