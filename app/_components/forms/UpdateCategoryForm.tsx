@@ -58,7 +58,7 @@ const UpdateCategoryForm = (props: Props) => {
   return (
     <Stack
       component="form"
-      gap={4}
+      gap={1}
       py={4}
       noValidate
       onSubmit={handleSubmit(onSubmit)}
@@ -67,13 +67,19 @@ const UpdateCategoryForm = (props: Props) => {
         label="Name"
         name="name"
         control={control}
-        textFieldProps={{ error: !!errors.name }}
+        textFieldProps={{
+          error: !!errors.name,
+          helperText: errors.name?.message ?? " ",
+        }}
       />
       <RHFTextField
         label="Description"
         name="description"
         control={control}
-        textFieldProps={{ error: !!errors.description }}
+        textFieldProps={{
+          error: !!errors.description,
+          helperText: errors.description?.message ?? " ",
+        }}
       />
 
       <Controller
