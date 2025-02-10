@@ -1,6 +1,6 @@
 import { AppBar, List, ListItem, Toolbar, Typography } from "@mui/material";
 import { ROUTES } from "@constants/routes";
-import Link from "./Link";
+import Link from "@components/shared/Link";
 
 const Header = () => {
   return (

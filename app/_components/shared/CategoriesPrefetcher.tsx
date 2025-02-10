@@ -4,7 +4,7 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { PropsWithChildren } from "react";
-import { categoryQueries } from "../_constants/queryFactories";
+import { categoryQueries } from "@constants/queryFactories";
 
 const CategoriesPrefetcher = async ({ children }: PropsWithChildren) => {
   const queryClient = new QueryClient();
