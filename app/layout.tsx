@@ -5,9 +5,10 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { PropsWithChildren } from "react";
-import Header from "./_components/Header";
+import Header from "@components/shared/Header";
 import QueryProvider from "./_providers/QueryClientProvider";
 import theme from "./_theme";
+import { NotistackProvider } from "./_utils/SnackbarProviderClient";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -29,6 +30,9 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <body className={roboto.variable}>
+            <NotistackProvider
+              anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
+            />
             <QueryProvider>
               <Header />
               <Container maxWidth="xl" sx={{ py: 8 }}>
