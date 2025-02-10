@@ -11,7 +11,9 @@ const CategoirsPage = async () => {
         justifyContent="space-between"
         flexWrap="wrap"
       >
-        <Typography component="h1">Categories</Typography>
+        <Typography component="h1" sx={{ fontSize: "2rem" }}>
+          Categories
+        </Typography>
         <AddCategoryButton />
       </Stack>
       <CategoriesTable />
