@@ -4,6 +4,7 @@ import ImagesPrefetcher from "@/app/_components/shared/ImagesPrefetcher";
 import { Suspense } from "react";
 import ImagesWrapper from "./ImagesWrapper";
 import ImageSkeleton from "./ImageSkeleton";
+import AddImageButton from "./AddImageButton";
 
 const ImagesPage = async () => {
   return (
@@ -17,6 +18,7 @@ const ImagesPage = async () => {
         <Typography component="h1" sx={{ fontSize: "2rem" }}>
           Images
         </Typography>
+        <AddImageButton />
       </Stack>
       <Suspense
         fallback={

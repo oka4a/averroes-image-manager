@@ -36,6 +36,10 @@ const ImagePreviewDialog = ({
       <DialogTitle>
         <Typography>{dialogTitle}</Typography>
         <Divider orientation="horizontal" />
+        <Typography variant="caption" color="warning">
+          Hint: Preview may not match the final uploaded image as the URL
+          generates a random image each time.
+        </Typography>
       </DialogTitle>
       <DialogContent>
         <Stack justifyContent="center" alignItems="center" padding="4">

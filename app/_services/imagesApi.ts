@@ -1,5 +1,6 @@
 import { ImageSchema } from "../_schemas/imageSchema";
 import { fetchApi } from "../_utils/fetchApi";
+import transformImageSchemaToPayload from "../_utils/transformImageSchemaToPayload";
 
 const IMAGES_ENDPOINT = "images";
 
@@ -19,7 +20,7 @@ export async function getImage(id?: number) {
 export async function addImage(data: ImageSchema) {
   const image = fetchApi<IImage>(`/${IMAGES_ENDPOINT}`, {
     method: "POST",
-    body: JSON.stringify(data),
+    body: JSON.stringify(transformImageSchemaToPayload(data)),
   });
 
   return image;
@@ -27,12 +28,12 @@ export async function addImage(data: ImageSchema) {
 
 interface UpdateImage {
   id: number;
-  data: Partial<ImageSchema>;
+  data: ImageSchema;
 }
 export async function updateImage({ id, data }: UpdateImage) {
   const image = fetchApi<IImage>(`/${IMAGES_ENDPOINT}/${id}`, {
     method: "PUT",
-    body: JSON.stringify(data),
+    body: JSON.stringify(transformImageSchemaToPayload(data)),
   });
 
   return image;

@@ -25,7 +25,7 @@ export async function addCategory(data: CategorySchema) {
 
 interface UpdateCategory {
   id: number;
-  data: Partial<CategorySchema>;
+  data: CategorySchema;
 }
 export async function updateCategory({ id, data }: UpdateCategory) {
   const category = fetchApi<ICategory>(`/categories/${id}`, {
