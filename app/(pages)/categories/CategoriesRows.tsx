@@ -1,21 +1,33 @@
 "use client";
 
 import { categoryQueries } from "@/app/_constants/queryFactories";
-import { Box, Button, TableCell, TableRow } from "@mui/material";
+import { Box, Button, Stack, TableCell, TableRow } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import SkeltonRows from "@/app/_components/shared/SkeletonRows";
 import { useState } from "react";
 import EditCategoryDialog from "./UpdateCategoryDialog";
+import DeleteCategoryAlert from "./DeleteCategoryAlert";
 
 const CategoriesRows = () => {
   const { data: categories, isPending } = useQuery(categoryQueries.all());
   const [editingCategoryId, setEditingCategoryId] = useState<number | null>(
     null,
   );
+  const [categoryToDelete, setCategoryToDelete] = useState<
+    ICategory | undefined
+  >(undefined);
 
   const onEdit = (id: number) => {
     setEditingCategoryId(id);
+  };
+
+  const onDeleteCategory = (category: ICategory) => {
+    setCategoryToDelete(category);
+  };
+
+  const onDeleteCategoryCancel = () => {
+    setCategoryToDelete(undefined);
   };
 
   if (isPending) {
@@ -47,10 +59,19 @@ const CategoriesRows = () => {
               style={{ borderRadius: "5px" }}
             />
           </TableCell>
-          <TableCell align="right">
-            <Button variant="contained" onClick={() => onEdit(category.id)}>
-              Edit
-            </Button>
+          <TableCell>
+            <Stack direction="row" justifyContent="flex-end" gap={2}>
+              <Button variant="contained" onClick={() => onEdit(category.id)}>
+                Edit
+              </Button>
+              <Button
+                variant="contained"
+                color="error"
+                onClick={() => onDeleteCategory(category)}
+              >
+                Delete
+              </Button>
+            </Stack>
           </TableCell>
         </TableRow>
       ))}
@@ -61,6 +82,11 @@ const CategoriesRows = () => {
           onClose={() => setEditingCategoryId(null)}
         />
       )}
+
+      <DeleteCategoryAlert
+        category={categoryToDelete}
+        onClose={onDeleteCategoryCancel}
+      />
     </>
   );
 };
