@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import SkeltonRows from "@/app/_components/shared/SkeletonRows";
 import { useState } from "react";
-import EditCategoryDialog from "./EditCategoryDialog";
+import EditCategoryDialog from "./UpdateCategoryDialog";
 
 const CategoriesRows = () => {
   const { data: categories, isPending } = useQuery(categoryQueries.all());

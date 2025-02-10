@@ -1,4 +1,5 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
+import AddCategoryButton from "./AddCategoryButton";
 import CategoriesTable from "./CategoriesTable";
 
 const CategoirsPage = async () => {
@@ -11,7 +12,7 @@ const CategoirsPage = async () => {
         flexWrap="wrap"
       >
         <Typography component="h1">Categories</Typography>
-        <Button variant="contained">Add Comment</Button>
+        <AddCategoryButton />
       </Stack>
       <CategoriesTable />
     </Box>

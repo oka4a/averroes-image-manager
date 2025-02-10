@@ -7,7 +7,8 @@ export async function getCategories() {
   return categories;
 }
 
-export async function getCategory(id: number) {
+export async function getCategory(id?: number) {
+  if (!id) return undefined;
   const category = fetchApi<ICategory>(`/categories/${id}`);
 
   return category;

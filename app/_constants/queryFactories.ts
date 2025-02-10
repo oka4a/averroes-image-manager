@@ -7,7 +7,7 @@ export const categoryQueries = {
       queryKey: ["cateogies"],
       queryFn: getCategories,
     }),
-  byId: (id: number) =>
+  byId: (id?: number) =>
     queryOptions({
       queryKey: ["cateogies", id],
       queryFn: () => getCategory(id),

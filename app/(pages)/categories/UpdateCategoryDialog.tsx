@@ -13,13 +13,18 @@ import {
 import { useQuery } from "@tanstack/react-query";
 
 interface Props {
-  categoryId: number;
+  categoryId?: number;
   onClose: () => void;
 }
 const EditCategoryDialog = ({ categoryId, onClose }: Props) => {
-  const { data: category, isPending } = useQuery(
-    categoryQueries.byId(categoryId),
-  );
+  const { data: category, isPending } = useQuery({
+    ...categoryQueries.byId(categoryId),
+    enabled: !!categoryId,
+  });
+
+  const isEditMode = !!categoryId;
+  const shouldShowSpinner = isEditMode && isPending;
+
   return (
     <Dialog
       open={true}
@@ -34,17 +39,20 @@ const EditCategoryDialog = ({ categoryId, onClose }: Props) => {
         },
       }}
     >
-      <DialogTitle sx={{ padding: 0 }}>Update Category</DialogTitle>
+      <DialogTitle sx={{ padding: 0 }}>
+        {categoryId ? "Update" : "Add"} Category
+      </DialogTitle>
+
       <DialogContent sx={{ padding: 0 }}>
         <DialogContentText></DialogContentText>
-        {isPending ? (
+        {shouldShowSpinner ? (
           <Stack minHeight="40dvh" alignItems="center" justifyContent="center">
             <CircularProgress />
           </Stack>
         ) : (
           <UpdateCategoryForm
             category={category}
-            formMode="edit"
+            formMode={categoryId ? "edit" : "create"}
             onCancel={onClose}
             afterSubmit={onClose}
           />

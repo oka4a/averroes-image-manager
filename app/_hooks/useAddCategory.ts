@@ -6,6 +6,7 @@ import {
 
 import { categoryQueries } from "../_constants/queryFactories";
 import { addCategory } from "../_services/commentsApi";
+import { enqueueSnackbar } from "notistack";
 
 interface MutateCategoryOptions
   extends UseMutationOptions<
@@ -26,6 +27,8 @@ const useAddCategory = (mutateOptions?: MutateCategoryOptions) => {
       queryClient.invalidateQueries(categoryQueries.all());
 
       mutateOptions?.afterSuccess?.();
+
+      enqueueSnackbar({ message: "Category added", variant: "success" });
     },
   });
 };

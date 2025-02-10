@@ -40,7 +40,6 @@ const UpdateCategoryForm = (props: Props) => {
     handleSubmit,
     formState: { errors },
     control,
-    watch,
   } = useForm<CategorySchema>({
     resolver: zodResolver(categorySchema),
     values: category,
@@ -54,7 +53,6 @@ const UpdateCategoryForm = (props: Props) => {
     }
   };
 
-  console.log(watch("image"));
   const isPending = isAddingCategory || isUpdatingCategory;
 
   return (
