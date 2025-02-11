@@ -2,13 +2,39 @@
 
 import {
   isServer,
+  MutationCache,
+  QueryCache,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { PropsWithChildren } from "react";
 
+interface CustomError {
+  message: string;
+  status?: number;
+}
+
+declare module "@tanstack/react-query" {
+  interface Register {
+    defaultError: CustomError;
+  }
+}
 function makeQueryClient() {
+  const onError = (e: CustomError) => {
+    // TODO: handle global errors here
+    console.error(e);
+  };
+
+  const queryCache = new QueryCache({
+    onError,
+  });
+
+  const mutationCache = new MutationCache({
+    onError,
+  });
   return new QueryClient({
+    queryCache,
+    mutationCache,
     defaultOptions: {
       queries: {
         // above 0 to avoid refetching immediately on the client
