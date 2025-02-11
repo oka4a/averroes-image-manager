@@ -11,6 +11,10 @@ Averroes Image Manager is a web application designed to manage images, categorie
 
 This project is experimental, and while we typically believe highly dynamic dashboards do not require Next.js (as React alone suffices without SEO concerns), we are using Next.js here purely for exploration.
 
+## Demo
+
+https://averroes-image-manager.vercel.app
+
 ## Getting Started
 
 ### Prerequisites
@@ -69,3 +73,8 @@ app: Contains the main application code, including pages, components, and utilit
 - \_utils: Utility functions used throughout the application.
 
 (pages): Individual pages of the application, including the image management pages, and category management pages.
+
+## TODO:
+
+- Handle image annotations
+- Use react-virtualized masonry for better ux
