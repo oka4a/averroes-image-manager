@@ -2,6 +2,7 @@
 
 import { Button, Stack, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
+import Image from "next/image";
 import { useState } from "react";
 import {
   Control,
@@ -73,12 +74,12 @@ function ImageUploadField<TField extends FieldValues>({
           justifyContent="center"
           sx={{ borderRadius: "999px" }}
         >
-          <img
+          <Image
             src={preview}
             alt="Preview"
+            width={100}
+            height={100}
             style={{
-              width: 100,
-              height: 100,
               objectFit: "cover",
               borderRadius: "999px",
               border: "1px solid #ccc",

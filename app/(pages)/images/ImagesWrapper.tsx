@@ -14,7 +14,7 @@ const ImagesWrapper = (props: ImageListProps) => {
         },
         p: 1,
       }}
-      gap={20}
+      gap={24}
       {...props}
     />
   );

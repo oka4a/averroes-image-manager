@@ -5,7 +5,7 @@ export const imageSchema = z.object({
   url: z.string({ required_error: "Image is required" }),
   size: z
     .string({ required_error: "Size is required" })
-    .regex(/^\d+$/, "Size must be a number"),
+    .regex(/^\d+(\.\d+)?$/, "Size must be a valid number"),
   resolution: z
     .string({ required_error: "Resolution is required" })
     .regex(/^\d+x\d+$/, "Resolution must be in WIDTHxHEIGHT format"),

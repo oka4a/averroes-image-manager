@@ -2,7 +2,7 @@
 
 import { Button } from "@mui/material";
 import { useState } from "react";
-import UpdateImaegDialog from "./UpdateImageDialog";
+import UpdateImageDialog from "./UpdateImageDialog";
 
 const AddImageButton = () => {
   const [showAddImage, setShowAddImage] = useState(false);
@@ -17,7 +17,7 @@ const AddImageButton = () => {
         Add Image
       </Button>
       {showAddImage && (
-        <UpdateImaegDialog onClose={() => setShowAddImage(false)} />
+        <UpdateImageDialog onClose={() => setShowAddImage(false)} />
       )}
     </>
   );

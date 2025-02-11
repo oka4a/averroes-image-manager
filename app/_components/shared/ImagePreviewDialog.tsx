@@ -36,13 +36,13 @@ const ImagePreviewDialog = ({
       <DialogTitle>
         <Typography>{dialogTitle}</Typography>
         <Divider orientation="horizontal" />
+      </DialogTitle>
+      <DialogContent>
         <Typography variant="caption" color="warning">
           Hint: Preview may not match the final uploaded image as the URL
           generates a random image each time.
         </Typography>
-      </DialogTitle>
-      <DialogContent>
-        <Stack justifyContent="center" alignItems="center" padding="4">
+        <Stack justifyContent="center" alignItems="center" padding="4" mt={1}>
           {/* TODO: fix skeleton size */}
           {load && (
             <Skeleton
