@@ -10,7 +10,7 @@ const ImagesWrapper = (props: ImageListProps) => {
           // Using !important as ImageList lacks responsive flexibility
           xs: "1 !important",
           sm: "2 !important",
-          md: "4 !important",
+          md: "3 !important",
         },
         p: 1,
       }}

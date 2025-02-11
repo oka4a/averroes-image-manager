@@ -1,13 +1,7 @@
 "use client";
 
 import { categoryQueries } from "@/app/_constants/queryFactories";
-import {
-  Box,
-  Chip,
-  ImageListItem,
-  ImageListItemBar,
-  Stack,
-} from "@mui/material";
+import { Box, Chip, ImageListItemBar, Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import ImageActions from "./ImageActions";
@@ -17,12 +11,14 @@ interface ImageItemProps {
   onImageView: () => void;
   onEdit: () => void;
   onDelete: () => void;
+  colWidth: number;
 }
 const ImageItem = ({
   image,
   onImageView,
   onEdit,
   onDelete,
+  colWidth,
 }: ImageItemProps) => {
   const { data: categories, isPending: isPendingCategories } = useQuery(
     categoryQueries.all(),
@@ -35,11 +31,14 @@ const ImageItem = ({
   const categoryName = isPendingCategories ? "..." : category?.name;
 
   return (
-    <ImageListItem
+    <Stack
+      spacing={2}
+      justifyContent="space-between"
       sx={{
+        height: "100%",
         borderRadius: 2,
         overflow: "hidden",
-        boxShadow: 3,
+        // boxShadow: 3,
         transition: "transform 0.3s ease-in-out",
         background: "rgba(255, 255, 255, 0.6)",
 
@@ -55,17 +54,30 @@ const ImageItem = ({
         onClick={onImageView}
         src={image.url}
         alt={image.name}
-        width={+width}
-        height={+height}
-        sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        width={colWidth}
+        height={colWidth / (+width / +height)}
         style={{
-          width: "100%",
-          height: "auto",
+          width: `100%`,
+          height: `auto`,
           aspectRatio: `${width}/${height}`,
           borderRadius: "8px 8px 0 0",
         }}
+        // width={+width}
+        // height={+height}
+        // sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        // style={{
+        //   width: "100%",
+        //   height: "auto",
+        //   aspectRatio: `${width}/${height}`,
+        //   borderRadius: "8px 8px 0 0",
+        // }}
       />
-      <Box paddingX={2} paddingBlockEnd="12px" paddingBlockStart="4px">
+      <Stack
+        paddingX={2}
+        paddingBlockEnd="12px"
+        paddingBlockStart="4px"
+        flex={1}
+      >
         <Stack
           direction="row"
           justifyContent="space-between"
@@ -105,8 +117,8 @@ const ImageItem = ({
           </Box>
         </Stack>
         <ImageActions onEdit={onEdit} onDelete={onDelete} />
-      </Box>
-    </ImageListItem>
+      </Stack>
+    </Stack>
   );
 };
 

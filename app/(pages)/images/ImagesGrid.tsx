@@ -1,14 +1,22 @@
 "use client";
 
+import { Box } from "@mui/material";
+import AutoSizer from "react-virtualized-auto-sizer";
+import { VariableSizeGrid as Grid } from "react-window";
+import ImageItem from "./ImageItem";
+
 import ImagePreviewDialog from "@/app/_components/shared/ImagePreviewDialog";
 import { imageQueries } from "@/app/_constants/queryFactories";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import ImageItem from "./ImageItem";
-import ImageSkeleton from "./ImageSkeleton";
-import ImagesWrapper from "./ImagesWrapper";
 import DeleteImageAlert from "./DeleteImageAlert";
 import UpdateImageDialog from "./UpdateImageDialog";
+import ImagesWrapper from "./ImagesWrapper";
+import ImageSkeleton from "./ImageSkeleton";
+
+const gutterSize = 12; // Space between images
+
+const imageDetailsHeight = 165;
 
 const ImagesGrid = () => {
   const { data: images = [], isPending } = useQuery(imageQueries.all());
@@ -42,23 +50,85 @@ const ImagesGrid = () => {
     setImageToView(undefined);
   };
 
-  return (
-    <>
+  const getRowHeight = (
+    rowIndex: number,
+    columnWidth: number,
+    numColumns: number,
+  ) => {
+    const startIndex = rowIndex * numColumns;
+    const endIndex = Math.min(startIndex + numColumns, images.length);
+
+    let maxHeight = 200; // Default height
+
+    for (let i = startIndex; i < endIndex; i++) {
+      const image = images[i];
+      if (!image) continue;
+      const [width, height] = image.metadata.resolution.split("x").map(Number);
+      const aspectRatio = width / height;
+      const computedHeight = columnWidth / aspectRatio;
+      maxHeight = Math.max(maxHeight, computedHeight);
+    }
+    return maxHeight + imageDetailsHeight;
+  };
+
+  if (isPending) {
+    return (
       <ImagesWrapper>
-        {images.map((image) => {
-          return isPending ? (
-            <ImageSkeleton key={image.id} />
-          ) : (
-            <ImageItem
-              image={image}
-              key={image.id}
-              onImageView={() => onImageView(image)}
-              onEdit={() => onEdit(image.id)}
-              onDelete={() => onDeleteImage(image)}
-            />
-          );
-        })}
+        {Array.from({ length: 12 }).map((_, ind) => (
+          <ImageSkeleton key={ind} />
+        ))}
       </ImagesWrapper>
+    );
+  }
+
+  return (
+    <Box sx={{ width: "100%", height: "90vh" }}>
+      <AutoSizer>
+        {({ height: containerHeight, width: containerWidth }) => {
+          let numColumns = 1;
+
+          if (containerWidth > 1200) {
+            numColumns = 3;
+          } else if (containerWidth > 800) {
+            numColumns = 2;
+          }
+
+          const numRows = Math.ceil(images.length / numColumns);
+          const colWidth =
+            (containerWidth - gutterSize * (numColumns - 1)) / numColumns;
+
+          return (
+            <Grid
+              columnCount={numColumns}
+              rowCount={numRows}
+              rowHeight={(ind) => getRowHeight(ind, colWidth, numColumns)}
+              columnWidth={() => colWidth}
+              width={containerWidth}
+              height={containerHeight}
+              className="window-grid"
+            >
+              {({ columnIndex, rowIndex, style }) => {
+                const imageIndex = rowIndex * numColumns + columnIndex;
+                if (imageIndex >= images.length) return null;
+                const image = images[imageIndex];
+
+                return (
+                  <Box paddingX={`${gutterSize}px`} style={style}>
+                    <ImageItem
+                      image={image}
+                      colWidth={colWidth}
+                      onEdit={() => onEdit(image.id)}
+                      onDelete={() => onDeleteImage(image)}
+                      onImageView={() => onImageView(image)}
+                    />
+                  </Box>
+                );
+              }}
+            </Grid>
+          );
+        }}
+      </AutoSizer>
+
       {imageToView && (
         <ImagePreviewDialog
           open={openImagePreview}
@@ -76,7 +146,7 @@ const ImagesGrid = () => {
           imageId={editingImageId}
         />
       )}
-    </>
+    </Box>
   );
 };
 

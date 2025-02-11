@@ -1,10 +1,10 @@
-import { Box, Stack, Typography } from "@mui/material";
-import ImagesGrid from "./ImagesGrid";
 import ImagesPrefetcher from "@/app/_components/shared/ImagesPrefetcher";
+import { Box, Stack, Typography } from "@mui/material";
 import { Suspense } from "react";
-import ImagesWrapper from "./ImagesWrapper";
-import ImageSkeleton from "./ImageSkeleton";
 import AddImageButton from "./AddImageButton";
+import ImageGrid from "./ImagesGrid";
+import ImageSkeleton from "./ImageSkeleton";
+import ImagesWrapper from "./ImagesWrapper";
 
 const ImagesPage = async () => {
   return (
@@ -30,7 +30,7 @@ const ImagesPage = async () => {
         }
       >
         <ImagesPrefetcher>
-          <ImagesGrid />
+          <ImageGrid />
         </ImagesPrefetcher>
       </Suspense>
     </Box>
