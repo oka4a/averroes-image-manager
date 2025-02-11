@@ -1,7 +1,11 @@
+import { getPageTitle } from "@/app/_constants/docTitle";
 import { Box, Stack, Typography } from "@mui/material";
 import AddCategoryButton from "./AddCategoryButton";
 import CategoriesTable from "./CategoriesTable";
 
+export const metadata = {
+  title: getPageTitle("Categories"),
+};
 const CategoirsPage = async () => {
   return (
     <Box>

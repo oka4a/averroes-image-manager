@@ -9,6 +9,7 @@ import Header from "@components/shared/Header";
 import QueryProvider from "./_providers/QueryClientProvider";
 import theme from "./_theme";
 import { NotistackProvider } from "./_utils/SnackbarProviderClient";
+import { DOC_TITLE } from "./_constants/docTitle";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -19,7 +20,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Image Manager",
+  title: DOC_TITLE,
   description: "Mange your images",
 };
 
