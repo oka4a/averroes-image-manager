@@ -28,8 +28,6 @@ function ImageUploadField<TField extends FieldValues>({
     fieldState: { error },
   } = useController(props);
 
-  console.log(error);
-
   const [preview, setPreview] = useState<string | null>(value || null);
 
   const uploadFileMutation = useMutation({

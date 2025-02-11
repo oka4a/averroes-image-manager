@@ -44,7 +44,6 @@ const UpdateImageForm = (props: Props) => {
     handleSubmit,
     formState: { errors },
     control,
-    watch,
   } = useForm<ImageSchema>({
     resolver: zodResolver(imageSchema),
     values: image ? transformImageToFormData(image) : undefined,
@@ -59,8 +58,6 @@ const UpdateImageForm = (props: Props) => {
   };
 
   const isPending = isAddingImage || isUpdatingImage;
-
-  console.log("errors", watch("url"));
 
   return (
     <Stack
@@ -130,7 +127,7 @@ const UpdateImageForm = (props: Props) => {
           loading={isPending}
           disabled={uploadFileMutation.isPending}
         >
-          {formMode === "edit" ? "Update Category" : "Add Category"}
+          {formMode === "edit" ? "Update Image" : "Add Image"}
         </Button>
       </Stack>
     </Stack>

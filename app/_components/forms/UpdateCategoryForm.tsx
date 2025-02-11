@@ -4,10 +4,10 @@ import useAddCategory from "@/app/_hooks/useAddCategory";
 import useUpdateCategory from "@/app/_hooks/useUpdateCategory";
 import { categorySchema, CategorySchema } from "@/app/_schemas/categorySchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Input, Stack } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
-import React from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import ImageUploadField from "../shared/ImageUploadField";
 import RHFTextField from "../shared/RHFTextField";
 
 interface Props {
@@ -63,6 +63,8 @@ const UpdateCategoryForm = (props: Props) => {
       noValidate
       onSubmit={handleSubmit(onSubmit)}
     >
+      <ImageUploadField name="image" control={control} />
+
       <RHFTextField
         label="Name"
         name="name"
@@ -80,37 +82,6 @@ const UpdateCategoryForm = (props: Props) => {
           error: !!errors.description,
           helperText: errors.description?.message ?? " ",
         }}
-      />
-
-      <Controller
-        name={"image"}
-        control={control}
-        render={({ field: { onChange } }) => (
-          <Input
-            type="file"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              if (event.target.files?.[0]) {
-                uploadFileMutation.mutate(event.target.files[0], {
-                  onSuccess: (filePath) => {
-                    onChange(filePath);
-                  },
-                });
-              }
-            }}
-            sx={{
-              "&:before": {
-                borderBottom: 0,
-                outline: 0,
-              },
-            }}
-            slotProps={{
-              input: {
-                accept: "image/*",
-                disabled: uploadFileMutation.isPending,
-              },
-            }}
-          />
-        )}
       />
 
       <Stack direction="row" justifyContent="center" gap={4} mt={2}>
