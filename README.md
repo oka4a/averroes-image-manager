@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Averroes Image Manager
+
+## Overview
+
+Averroes Image Manager is a web application designed to manage images, categories, and annotations. It provides functionalities such as:
+
+- **Uploading images**
+- **Viewing images**
+- **Deleting images**
+- **Annotating images using drawing tools**
+
+This project is experimental, and while we typically believe highly dynamic dashboards do not require Next.js (as React alone suffices without SEO concerns), we are using Next.js here purely for exploration.
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Ensure you have the following installed:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Node.js** (V22.13.0 recommended)
+- **pnpm**
+- **prepare husky**: `pnpm prepare`
+- **add .env file**: `NEXT_PUBLIC_API_URL=https://my-json-server.typicode.com/MostafaKMilly/demo`
+  `
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Install dependencies**: `pnpm install`
+- **Run development server**: `pnpm dev`
+- **Build for production**: `pnpm build`
 
-## Learn More
+### Features
 
-To learn more about Next.js, take a look at the following resources:
+#### UI
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+We are not focusing on UI in this project, so the design is kept minimal and functional.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### Data Fetching
 
-## Deploy on Vercel
+- We use server components to prefetch data into TanStack Query, allowing the client to start with prefetched data and continue fetching on the client side.
+- We set a staleTime greater than 0 to prevent refetching immediately on first render.
+- Suspense is used to show a skeleton loader while fetching data on the server.
+- isPending is used to display a skeleton loader for client-side refetching.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### Form Validation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- We use client-side validation for an instant response, avoiding server-side latency.
+- react-hook-form is used to manage form states efficiently.
+- zod is used for schema validation.
+- We integrated MUI with react-hook-form, ensuring compatibility despite MUI fields being controlled by default.
+
+#### Backend
+
+- We use a JSON server to simulate backend responses and filters.
+
+### Folder Structure
+
+**Folders prefixed with `_` (underscore)**: These are **conventional internal modules** that are not directly tied to routing. They contain reusable logic, UI components, and utilities that support the app.
+**Folders wrapped in `()` (parentheses)**: These follow **Next.js conventions**, representing **route segments** in the application.
+
+app: Contains the main application code, including pages, components, and utilities.
+
+- \_components: Reusable UI components used throughout the application.
+- \_constants: Global constants and configuration values used throughout the application.
+- \_hooks: Custom React hooks used to manage state and side effects.
+- \_schemas: Validation schemas for forms and data using Zod.
+- \_services: API clients and utility functions for interacting with the backend.
+- \_styles: Global CSS styles.
+- \_utils: Utility functions used throughout the application.
+
+(pages): Individual pages of the application, including the image management pages, and category management pages.
